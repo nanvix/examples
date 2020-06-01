@@ -1,0 +1,36 @@
+# Toolchain
+utils/toolchain
+
+# Doxygen
+doc/html
+doxygen.output
+
+# Build Files
+bin/
+lib/
+*.a
+*.img
+*.o
+
+# Output Files
+nanvix-cluster*
+
+# Ctags
+tags
+
+# IDEs
+*.swp
+*.swo
+*.vscode/
+
+# Headers
+include/arch/
+include/dev/
+include/fs/
+include/grub/
+include/machine/
+include/nanvix/
+include/posix/
+
+# Excludes
+!img/*.img
