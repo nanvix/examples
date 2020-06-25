@@ -23,14 +23,14 @@
 #
 
 # Builds everything.
-all: all-hello all-thread
+all: all-hello all-shared-variable all-producer-consumer
 # Cleans up build objects.
-clean: clean-hello clean-thread
+clean: clean-hello clean-shared-variable clean-producer-consumer
 # Cleans up everything.
-distclean: distclean-hello disclean-thread
+distclean: disclean-hello disclean-shared-variable disclean-producer-consumer
 
 #===============================================================================
-# Hello World
+# Hello
 #===============================================================================
 
 # Builds the app.
@@ -44,16 +44,30 @@ distclean-hello:
 	$(MAKE) -C hello distclean
 
 #===============================================================================
-# thread
+# Global Variable
 #===============================================================================
 
 # Builds the app.
-all-thread:
-	$(MAKE) -C thread all
+all-shared-variable:
+	$(MAKE) -C shared-variable all
 # Cleans up build objects.
-clean-thread:
-	$(MAKE) -C thread clean
+clean-shared-variable:
+	$(MAKE) -C shared-variable clean
 # Cleans up everything.
-distclean-thread:
-	$(MAKE) -C thread distclean
+distclean-shared-variable:
+	$(MAKE) -C shared-variable distclean
+
+#===============================================================================
+# Producer Consumer Problem
+#===============================================================================
+
+# Builds the app.
+all-producer-consumer:
+	$(MAKE) -C producer-consumer all
+# Cleans up build objects.
+clean-producer-consumer:
+	$(MAKE) -C producer-consumer clean
+# Cleans up everything.
+distclean-producer-consumer:
+	$(MAKE) -C producer-consumer distclean
 
