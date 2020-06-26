@@ -23,12 +23,11 @@
 #
 
 # Builds everything.
-all: all-hello all-thread
+all: all-hello all-thread 
 # Cleans up build objects.
-clean: clean-hello clean-thread
+clean: clean-hello clean-thread 
 # Cleans up everything.
-distclean: distclean-hello disclean-thread
-
+distclean: distclean-hello disclean-thread 
 #===============================================================================
 # Hello World
 #===============================================================================

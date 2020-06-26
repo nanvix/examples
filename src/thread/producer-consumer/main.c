@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright(c) 2018 Pedro Henrique Penna <pedrohenriquepenna@gmail.com>
+ * Copyright(c) 2011-2020 The Maintainers of Nanvix
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,8 +47,8 @@
 /**@{*/
 int f, i = 0;
 int buffer[SIZE];
-struct nanvix_semaphore cheio;
-struct nanvix_semaphore vazio;
+struct nanvix_semaphore full;
+struct nanvix_semaphore empty;
 struct nanvix_semaphore lock_prod;
 struct nanvix_semaphore lock_cons;
 /**@}*/
@@ -63,19 +63,19 @@ struct nanvix_semaphore lock_cons;
 void *producer(void * args)
 {
 	int tid = *((int *) args);
-	uprintf("Produtor %d criado", tid);
+	uprintf("Producer %d created", tid);
 
 	for (int t = 0; t < 1000; t++)
 	{
-		nanvix_semaphore_down(&vazio);
+		nanvix_semaphore_down(&empty);
 		nanvix_semaphore_down(&lock_prod);
 
 		f = (f+1) % SIZE;
 		buffer[f] = (tid * 1000) + t;
-		uprintf("produzi no indice %d: %d", f, buffer[f]);
+		uprintf("produced in the index %d: %d", f, buffer[f]);
 
 		nanvix_semaphore_up(&lock_prod);
-		nanvix_semaphore_up(&cheio);
+		nanvix_semaphore_up(&full);
 	}
 
 	return (NULL);
@@ -92,19 +92,19 @@ void *consumer(void * args)
 {
 
 	int tid = *((int *) args);
-	uprintf("Consumidor %d criado", tid);
+	uprintf("Consumer %d created", tid);
 
 	for (int t = 0; t < 1000; t++)
 	{
-		nanvix_semaphore_down(&cheio);
+		nanvix_semaphore_down(&full);
 		nanvix_semaphore_down(&lock_cons);
 
 		i = (i+1) % SIZE;
-		uprintf("consumi no indice %d: %d", i, buffer[i]);
+		uprintf("consumed in the index %d: %d", i, buffer[i]);
 		buffer[i] = 0;
 
 		nanvix_semaphore_up(&lock_cons);
-		nanvix_semaphore_up(&vazio);
+		nanvix_semaphore_up(&empty);
 	}
 
 	return (NULL);
@@ -122,8 +122,8 @@ int __main3(int argc, const char *argv[])
 	((void) argc);
 	((void) argv);
 
-	nanvix_semaphore_init(&cheio, 0);
-	nanvix_semaphore_init(&vazio, SIZE);
+	nanvix_semaphore_init(&full, 0);
+	nanvix_semaphore_init(&empty, SIZE);
 	nanvix_semaphore_init(&lock_prod, 1);
 	nanvix_semaphore_init(&lock_cons, 1);
 
