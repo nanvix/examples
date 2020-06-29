@@ -21,18 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+#include <nanvix/runtime/runtime.h>
+#include <nanvix/ulib.h>
+#include <nanvix/sys/thread.h>
 
 /**
- * Copyright (C) 2013-2014 Kalray SA.
- *
- * All rights reserved.
- */
-
-/*
- * Available memory regions.
- */
-MEMORY
+ *	@brief Prints Hello and thread id.
+ **/
+void * print_hello(void * args)
 {
-    internal_mem           : ORIGIN = 0x00000000, LENGTH = 2M
-	upper_internal_memory  : ORIGIN = 0x00200000, LENGTH = 0
+	((void) args);
+
+	uprintf("Thread %d: Hello!", kthread_self());
+
+	return (NULL);
 }
+
+/**
+ *	@brief Main function.
+ **/
+int __main3(int argc, const char *argv[])
+{
+	kthread_t tids[(THREAD_MAX - 2)];
+
+	((void) argc);
+	((void) argv);
+
+	for (int i = 0; i < (THREAD_MAX - 2); i++)
+		uassert(kthread_create(&tids[i], print_hello, NULL) >= 0);
+
+	for (int i = 0; i < (THREAD_MAX - 2); i++)
+		uassert(kthread_join(tids[i], NULL) >= 0);
+
+	return (0);
+}
+

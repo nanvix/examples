@@ -22,63 +22,52 @@
 # SOFTWARE.
 #
 
-#===============================================================================
-# Target Configuration
-#===============================================================================
-
-export TARGET    ?= unix64
-export PROCESSOR := linux64
-export CLUSTER   := linux64-cluster
-export CORE      := linux64-core
-
-export CFLAGS := -D __unix64__            # Target
-export CFLAGS += -D __linux64_processor__ # Processor
-export CFLAGS += -D __linux64_cluster__   # Cluster
-export CFLAGS += -D __linux64_core__      # Core
-
-#===============================================================================
-# Toolchain Configuration
-#===============================================================================
-
-# Toolchain Directory
-export TOOLCHAIN_DIR ?= $(TOOLSDIR)/toolchain/unix/bin
-
-# Toolchain
-export CC := gcc
-export LD := ld
-export AR := ar
-
-# Timeout Variable
-export TIMEOUT ?= 60
-
-# Compiler Options
-export CFLAGS += -D_GNU_SOURCE -D_POSIX_C_SOURCE=200112L
-export CFLAGS += -ansi -Wno-error=pedantic
-export CFLAGS += -Wstack-usage=4096
-export CFLAGS += -D __HAS_HW_DIVISION=1 -D__HAS_HW_MULTIPLICATION=1
-
-# Linker Options
-export LDFLAGS :=
-
-# Suffix for Objects
-export OBJ_SUFFIX := unix64
-
-#===============================================================================
-# Libraries
-#===============================================================================
-
-export THEIR_LIBS := -lpthread -lm -lrt
-
-#===============================================================================
-
 # Builds everything.
-all-target: make-dirs
-	@$(MAKE) -C $(SRCDIR) all
+all: all-hello all-shared-variable all-producer-consumer
+# Cleans up build objects.
+clean: clean-hello clean-shared-variable clean-producer-consumer
+# Cleans up everything.
+distclean: disclean-hello disclean-shared-variable disclean-producer-consumer
 
-# Cleans object files.
-clean-target:
-	@$(MAKE) -C $(SRCDIR) clean
+#===============================================================================
+# Hello
+#===============================================================================
 
-# Cleans everything.
-distclean-target:
-	@$(MAKE) -C $(SRCDIR) distclean
+# Builds the app.
+all-hello:
+	$(MAKE) -C hello all
+# Cleans up build objects.
+clean-hello:
+	$(MAKE) -C hello clean
+# Cleans up everything.
+distclean-hello:
+	$(MAKE) -C hello distclean
+
+#===============================================================================
+# Global Variable
+#===============================================================================
+
+# Builds the app.
+all-shared-variable:
+	$(MAKE) -C shared-variable all
+# Cleans up build objects.
+clean-shared-variable:
+	$(MAKE) -C shared-variable clean
+# Cleans up everything.
+distclean-shared-variable:
+	$(MAKE) -C shared-variable distclean
+
+#===============================================================================
+# Producer Consumer Problem
+#===============================================================================
+
+# Builds the app.
+all-producer-consumer:
+	$(MAKE) -C producer-consumer all
+# Cleans up build objects.
+clean-producer-consumer:
+	$(MAKE) -C producer-consumer clean
+# Cleans up everything.
+distclean-producer-consumer:
+	$(MAKE) -C producer-consumer distclean
+

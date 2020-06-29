@@ -22,38 +22,22 @@
 # SOFTWARE.
 #
 
-# Builds All Object Files
-all: $(OBJ)
-ifeq ($(VERBOSE), no)
-	@echo [CC] $(EXEC)
-	@$(CC) $(LDFLAGS) $(LINKER_SCRIPT) -o $(BINDIR)/$(EXEC) $(OBJ) $(LIBS)
-else
-	$(CC) $(LDFLAGS) $(LINKER_SCRIPT) -o $(BINDIR)/$(EXEC) $(OBJ) $(LIBS)
-endif
+include $(BUILDDIR)/makefile.config
 
-# Cleans All Object Files
-clean:
-ifeq ($(VERBOSE), no)
-	@echo [CLEAN] $(OBJ)
-	@rm -rf $(OBJ)
-else
-	rm -rf $(OBJ)
-endif
+#===============================================================================
+# Binaries Sources and Objects
+#===============================================================================
 
-# Cleans Everything
-distclean: clean
-ifeq ($(VERBOSE), no)
-	@echo [CLEAN] $(EXEC)
-	@rm -rf $(BINDIR)/$(EXEC)
-else
-	rm -rf $(BINDIR)/$(EXEC)
-endif
+# Binary
+EXEC = nanvix-thread-hello.$(OBJ_SUFFIX)
 
-# Builds a C source file.
-%.$(OBJ_SUFFIX).o: %.c
-ifeq ($(VERBOSE), no)
-	@echo [CC] $@
-	@$(CC) $(CFLAGS) $< -c -o $@
-else
-	$(CC) $(CFLAGS) $< -c -o $@
-endif
+# C Source Files
+SRC = $(wildcard *.c) \
+
+
+# Object Files
+OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
+
+#===============================================================================
+
+include $(BUILDDIR)/makefile.rule

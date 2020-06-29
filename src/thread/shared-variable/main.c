@@ -22,22 +22,57 @@
  * SOFTWARE.
  */
 
+#include <nanvix/runtime/runtime.h>
+#include <nanvix/ulib.h>
+#include <nanvix/sys/thread.h>
+#include <nanvix/sys/semaphore.h>
+
 /**
- * Copyright (C) 2013-2014 Kalray SA.
- *
- * All rights reserved.
- */
+ * @brief Global variables.
+ **/
+/**@{*/
+int global_counter = 0;
+struct nanvix_semaphore semaphore;
+/**@}*/
 
-MEMORY
+/**
+ * @brief Increment a global variable 100 times.
+ **/
+void * increment(void * args)
 {
-    /* Definitions of available memory regions */
-    internal_mem           : ORIGIN = 0x00000000, LENGTH = 2M
-    upper_internal_memory  : ORIGIN = 0x00200000, LENGTH = 2M
+	((void) args);
 
-    /*
-     * 2G since 64G is not directly accessible for linker
-     * a RTEMS bug prevent to use 2G, but 2G-1 does work, see #5591
-     */
-    ddr                    : ORIGIN = 0x80000000, LENGTH = 2147483647
-    flash                  : ORIGIN = 0x08000000, LENGTH = 128M
+	for (int k = 0; k < 100; k++)
+	{
+		nanvix_semaphore_down(&semaphore);
+		global_counter++;
+		nanvix_semaphore_up(&semaphore);
+	}
+
+	return (NULL);
 }
+
+/**
+ * @brief Main funtion.
+ **/
+int __main3(int argc, const char *argv[])
+{
+	kthread_t tids[THREAD_MAX - 2];
+
+	((void) argc);
+	((void) argv);
+
+	nanvix_semaphore_init(&semaphore, 1);
+
+	for (int i = 0; i < (THREAD_MAX - 2); i++)
+		uassert(kthread_create(&tids[i], increment, NULL) >= 0);
+
+	for (int i = 0; i < (THREAD_MAX - 2); i++)
+		uassert(kthread_join(tids[i], NULL) >= 0);
+
+	uprintf("Totals threads: %d", THREAD_MAX - 2);
+	uprintf("Global counter: %d", global_counter);
+
+	return (0);
+}
+

@@ -22,28 +22,22 @@
 # SOFTWARE.
 #
 
-# Compiler Options
-ifneq ($(LIBLWIP),)
-CFLAGS += -I $(INCDIR)/posix
-endif
+include $(BUILDDIR)/makefile.config
 
-# Libraries
-LIBS := -Wl,--whole-archive
-LIBS += $(LIBDIR)/$(LIBHAL)
-LIBS += $(LIBDIR)/$(LIBKERNEL)
-LIBS += $(LIBDIR)/$(LIBRUNTIME)
-LIBS += -Wl,--no-whole-archive
-LIBS += $(LIBDIR)/$(LIBC)
-LIBS += $(LIBDIR)/$(LIBNANVIX)
-ifneq ($(LIBLWIP),)
-LIBS += $(LIBDIR)/$(LIBLWIP)
-endif
-LIBS += $(LIBDIR)/$(BARELIB) $(THEIR_LIBS)
+#===============================================================================
+# Binaries Sources and Objects
+#===============================================================================
 
-# Linker Options
-ifeq ($(TARGET),unix64)
-LINKER_SCRIPT=
-else
-LINKER_SCRIPT = -L $(LINKERDIR)/ -T link.ld
-endif
+# Binary
+EXEC = nanvix-thread-shared-variable.$(OBJ_SUFFIX)
 
+# C Source Files
+SRC = $(wildcard *.c) 
+
+
+# Object Files
+OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
+
+#===============================================================================
+
+include $(BUILDDIR)/makefile.rule

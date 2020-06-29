@@ -22,20 +22,22 @@
 # SOFTWARE.
 #
 
-ifeq ($(RELEASE), true)
+include $(BUILDDIR)/makefile.config
 
-	# Turn Off Debug Sections
-	export CFLAGS += -D NDEBUG
+#===============================================================================
+# Binaries Sources and Objects
+#===============================================================================
 
-	# Target-Specific Optimization Flags
-	include $(MAKEDIR)/makefile.cflags
+# Binary
+EXEC = nanvix-thread-producer-consumer.$(OBJ_SUFFIX)
 
-else
+# C Source Files
+SRC = $(wildcard *.c) 
 
-	# Build with Level 0 Optimization
-	export CFLAGS += -O0
 
-	# Further Help on Debugging
-	export CFLAGS += -g
+# Object Files
+OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
 
-endif
+#===============================================================================
+
+include $(BUILDDIR)/makefile.rule

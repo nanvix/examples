@@ -40,6 +40,12 @@ export RELEASE ?= no
 # Installation Prefix
 export PREFIX ?= $(HOME)
 
+# Use Docker?
+export DOCKER ?= no
+
+# Stall regression tests?
+export SUPPRESS_TESTS ?= no
+
 export ADDONS ?=
 
 #===============================================================================
@@ -75,7 +81,7 @@ export LIBRUNTIME := libruntime-$(TARGET).a
 # Target-Specific Make Rules
 #===============================================================================
 
-include $(MAKEDIR)/makefile
+include $(MAKEDIR)/makefile.examples
 
 #===============================================================================
 # Toolchain Configuration
@@ -93,6 +99,9 @@ export CFLAGS += -Wno-unused-function
 export CFLAGS += -I $(INCDIR)
 export CFLAGS += -I $(ROOTDIR)/src/lwip/src/include
 export CFLAGS += $(ADDONS)
+
+# Enable sync and portal implementation that uses mailboxes
+export CFLAGS += -D__NANVIX_IKC_USES_ONLY_MAILBOX=0
 
 # Additional C Flags
 include $(BUILDDIR)/makefile.cflags
@@ -131,7 +140,7 @@ distclean: distclean-target
 # Contrib Install and Uninstall Rules
 #===============================================================================
 
-include $(BUILDDIR)/makefile.contrib
+include $(BUILDDIR)/makefile.examples
 
 #===============================================================================
 # Debug and Run Rules
