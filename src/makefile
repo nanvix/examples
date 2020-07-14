@@ -27,7 +27,8 @@ all: all-hello all-thread
 # Cleans up build objects.
 clean: clean-hello clean-thread 
 # Cleans up everything.
-distclean: distclean-hello disclean-thread 
+distclean: distclean-hello distclean-thread 
+
 #===============================================================================
 # Hello World
 #===============================================================================

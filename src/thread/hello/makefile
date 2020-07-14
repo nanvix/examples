@@ -32,7 +32,7 @@ include $(BUILDDIR)/makefile.config
 EXEC = nanvix-thread-hello.$(OBJ_SUFFIX)
 
 # C Source Files
-SRC = $(wildcard *.c) \
+SRC = $(wildcard *.c)
 
 
 # Object Files
@@ -40,4 +40,4 @@ OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
 
 #===============================================================================
 
-include $(BUILDDIR)/makefile.rule
+include $(BUILDDIR)/makefile.executable
