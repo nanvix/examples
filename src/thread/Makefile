@@ -27,7 +27,7 @@ all: all-hello all-shared-variable all-producer-consumer
 # Cleans up build objects.
 clean: clean-hello clean-shared-variable clean-producer-consumer
 # Cleans up everything.
-distclean: disclean-hello disclean-shared-variable disclean-producer-consumer
+distclean: distclean-hello distclean-shared-variable distclean-producer-consumer
 
 #===============================================================================
 # Hello

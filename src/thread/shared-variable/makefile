@@ -40,4 +40,4 @@ OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
 
 #===============================================================================
 
-include $(BUILDDIR)/makefile.rule
+include $(BUILDDIR)/makefile.executable
