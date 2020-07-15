@@ -46,15 +46,22 @@ static char msg[KMAILBOX_MESSAGE_SIZE];
  */
 static void do_leader(void) 
 {
+<<<<<<< HEAD
 	int outbox;
 	/* Establish connections. */
 	uassert((outbox = kmailbox_open(PROCESSOR_NODENUM_LEADER + 1, PORT_NUM)) >= 0);
+=======
+	int outboxes;
+	/* Establish connections. */
+	uassert((outboxes= kmailbox_open(PROCESSOR_NODENUM_LEADER + 1, PORT_NUM)) >= 0);
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 	
 	uassert(barrier_wait(barrier) == 0);
 
 	/* Broadcast message. */
 	uassert(
 		kmailbox_write(
+<<<<<<< HEAD
 			outbox,
 			msg,
 			KMAILBOX_MESSAGE_SIZE
@@ -64,6 +71,17 @@ static void do_leader(void)
 	uassert(kmailbox_close(outbox) == 0);
 }
 
+=======
+			outboxes,
+			msg,
+			KMAILBOX_MESSAGE_SIZE
+			) == KMAILBOX_MESSAGE_SIZE
+	       );
+	uassert(barrier_wait(barrier) == 0);
+
+	uassert(kmailbox_close(outboxes) == 0);
+}
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 /**
  * @brief Sends messages to leader.
  */
@@ -78,6 +96,7 @@ static void do_worker(void)
 	uassert(barrier_wait(barrier) == 0);
 
 		uassert(
+<<<<<<< HEAD
 			kmailbox_read(
 				inbox,
 				msg,
@@ -85,15 +104,30 @@ static void do_worker(void)
 			) == KMAILBOX_MESSAGE_SIZE
 	       );
 	
+=======
+		kmailbox_read(
+			inbox,
+			msg,
+			KMAILBOX_MESSAGE_SIZE
+			) == KMAILBOX_MESSAGE_SIZE
+	       );
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 	uassert(kmailbox_ioctl(inbox, KMAILBOX_IOCTL_GET_LATENCY, &latency) == 0);
 	uassert(kmailbox_ioctl(inbox, KMAILBOX_IOCTL_GET_VOLUME, &volume) == 0);
 
 	uprintf("[mail][broadcast] latency= %l volume = %d", latency, volume);
 
+<<<<<<< HEAD
 	uassert(kmailbox_unlink(inbox) == 0);
 
 }
 
+=======
+	uassert(barrier_wait(barrier) == 0);
+	uassert(kmailbox_unlink(inbox) == 0);
+
+}
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 /**
 * @brief Broadcast communication with mailboxes.
 */
@@ -113,7 +147,10 @@ static void mail_broadcast(void)
 		fn();
 	uassert(barrier_destroy(barrier) == 0);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 /**
 * @brief Launches the example.
 */

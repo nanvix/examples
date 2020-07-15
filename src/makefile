@@ -27,8 +27,12 @@ all: all-hello all-thread all-mailbox
 # Cleans up build objects.
 clean: clean-hello clean-thread clean-mailbox
 # Cleans up everything.
+<<<<<<< HEAD
 distclean: distclean-hello distclean-thread distclean-mailbox
 
+=======
+distclean: distclean-hello disclean-thread disclean-mailbox
+>>>>>>> 4949395... Feature: Broadcast example using a mailbox.
 #===============================================================================
 # Hello World
 #===============================================================================
