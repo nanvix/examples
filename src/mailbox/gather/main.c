@@ -67,8 +67,6 @@ static void do_leader(void)
 
 	uprintf("[mail][broadcast] latency = %l volume = %d", latency, volume);
 
-	uassert(barrier_wait(barrier) == 0);
-
 	uassert(kmailbox_unlink(inbox) == 0);
 
 }
@@ -93,8 +91,6 @@ static void do_worker(void)
 			KMAILBOX_MESSAGE_SIZE
 		) == KMAILBOX_MESSAGE_SIZE
 	);
-
-	uassert(barrier_wait(barrier) == 0);
 
 	uassert(kmailbox_close(outbox) == 0);
 }

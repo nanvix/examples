@@ -62,9 +62,8 @@ static void do_leader(void)
 
 	uprintf("[mailbox][pingpong] latency=%l volume=%l", latency, volume);
 	
-	uassert(barrier_wait(barrier) == 0);
-
 	uassert(kmailbox_close(outbox) == 0);
+	
 	uassert(kmailbox_unlink(inbox) == 0);
 }
 
@@ -83,9 +82,8 @@ static void do_worker(void)
 	uassert(kmailbox_write(outbox, msg, KMAILBOX_MESSAGE_SIZE) == KMAILBOX_MESSAGE_SIZE);
 	uassert(kmailbox_read(inbox, msg, KMAILBOX_MESSAGE_SIZE) == KMAILBOX_MESSAGE_SIZE);
 
-	uassert(barrier_wait(barrier) == 0);
-
 	uassert(kmailbox_close(outbox) == 0);
+
 	uassert(kmailbox_unlink(inbox) == 0);
 }
 /**
