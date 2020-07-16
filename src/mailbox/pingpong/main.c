@@ -86,6 +86,7 @@ static void do_worker(void)
 
 	uassert(kmailbox_unlink(inbox) == 0);
 }
+
 /**
 * @brief Pingpong communication example with mailboxes.
 */

@@ -115,6 +115,7 @@ static void mail_gather(void)
 
 	uassert(barrier_destroy(barrier) == 0);
 }
+
 /**
 * @brief Launches the example.
 */

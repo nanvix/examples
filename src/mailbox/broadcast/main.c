@@ -63,6 +63,7 @@ static void do_leader(void)
 	
 	uassert(kmailbox_close(outbox) == 0);
 }
+
 /**
  * @brief Sends messages to leader.
  */
@@ -92,6 +93,7 @@ static void do_worker(void)
 	uassert(kmailbox_unlink(inbox) == 0);
 
 }
+
 /**
 * @brief Broadcast communication with mailboxes.
 */
@@ -111,6 +113,7 @@ static void mail_broadcast(void)
 		fn();
 	uassert(barrier_destroy(barrier) == 0);
 }
+
 /**
 * @brief Launches the example.
 */
