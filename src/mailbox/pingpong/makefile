@@ -22,50 +22,22 @@
 # SOFTWARE.
 #
 
-# Builds everything.
-all: all-hello all-thread all-mailbox
-# Cleans up build objects.
-clean: clean-hello clean-thread clean-mailbox
-# Cleans up everything.
-distclean: distclean-hello disclean-thread disclean-mailbox
-#===============================================================================
-# Hello World
-#===============================================================================
-
-# Builds the app.
-all-hello:
-	$(MAKE) -C hello all
-# Cleans up build objects.
-clean-hello:
-	$(MAKE) -C hello clean
-# Cleans up everything.
-distclean-hello:
-	$(MAKE) -C hello distclean
+include $(BUILDDIR)/makefile.config
 
 #===============================================================================
-# thread
+# Binaries Sources and Objects
 #===============================================================================
 
-# Builds the app.
-all-thread:
-	$(MAKE) -C thread all
-# Cleans up build objects.
-clean-thread:
-	$(MAKE) -C thread clean
-# Cleans up everything.
-distclean-thread:
-	$(MAKE) -C thread distclean
+# Binary
+EXEC = nanvix-mail-pingpong.$(OBJ_SUFFIX)
+
+# C Source Files
+SRC = $(wildcard *.c) \
+      $(wildcard workload/*.c)
+
+# Object Files
+OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
 
 #===============================================================================
-# mailbox
-#===============================================================================
 
-# Builds the app.
-all-mailbox:
-	$(MAKE) -C mailbox all
-# Cleans up build objects.
-clean-mailbox:
-	$(MAKE) -C mailbox clean
-# Cleans up everything.
-distclean-mailbox:
-	$(MAKE) -C mailbox distclean
+include $(BUILDDIR)/makefile.rule

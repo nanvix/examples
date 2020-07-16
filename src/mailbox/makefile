@@ -23,49 +23,58 @@
 #
 
 # Builds everything.
-all: all-hello all-thread all-mailbox
+all: all-broadcast all-gather all-pingpong
 # Cleans up build objects.
-clean: clean-hello clean-thread clean-mailbox
+clean:  clean-broadcast clean-gather clean-pingpong
+
 # Cleans up everything.
-distclean: distclean-hello disclean-thread disclean-mailbox
+distclean:  distclean-broadcast distclean-gather distclean-pingpong
+
 #===============================================================================
-# Hello World
+# Broadcast
 #===============================================================================
 
-# Builds the app.
-all-hello:
-	$(MAKE) -C hello all
-# Cleans up build objects.
-clean-hello:
-	$(MAKE) -C hello clean
+# Builds example.
+all-broadcast:
+	$(MAKE) -C broadcast all
+
+# Cleans up build object.
+clean-broadcast:
+	$(MAKE) -C broadcast clean
+
 # Cleans up everything.
-distclean-hello:
-	$(MAKE) -C hello distclean
+distclean-broadcast:
+	$(MAKE) -C broadcast distclean
 
 #===============================================================================
-# thread
+# Gather
 #===============================================================================
 
-# Builds the app.
-all-thread:
-	$(MAKE) -C thread all
-# Cleans up build objects.
-clean-thread:
-	$(MAKE) -C thread clean
+# Builds example.
+all-gather:
+	$(MAKE) -C gather all
+
+# Cleans up build object.
+clean-gather:
+	$(MAKE) -C gather clean
+
 # Cleans up everything.
-distclean-thread:
-	$(MAKE) -C thread distclean
+distclean-gather:
+	$(MAKE) -C gather distclean
 
 #===============================================================================
-# mailbox
+# PingPong
+
 #===============================================================================
 
-# Builds the app.
-all-mailbox:
-	$(MAKE) -C mailbox all
-# Cleans up build objects.
-clean-mailbox:
-	$(MAKE) -C mailbox clean
+# Builds example.
+all-pingpong:
+	$(MAKE) -C pingpong all
+
+# Cleans up build object.
+clean-pingpong:
+	$(MAKE) -C pingpong clean
+
 # Cleans up everything.
-distclean-mailbox:
-	$(MAKE) -C mailbox distclean
+distclean-pingpong:
+	$(MAKE) -C pingpong distclean
