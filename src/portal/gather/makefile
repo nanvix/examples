@@ -29,10 +29,11 @@ include $(BUILDDIR)/makefile.config
 #===============================================================================
 
 # Binary
-EXEC = nanvix-mail-broadcast.$(OBJ_SUFFIX)
+EXEC = nanvix-portal-gather.$(OBJ_SUFFIX)
 
 # C Source Files
-SRC = $(wildcard *.c)
+SRC = $(wildcard *.c) \
+      $(wildcard workload/*.c)
 
 # Object Files
 OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)
