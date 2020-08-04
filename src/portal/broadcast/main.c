@@ -43,7 +43,7 @@
 static char buf[BUFFER_SIZE];
 
 /**
- * @brief Receives data to the worker.
+ * @brief Sends data to the worker.
  */
 static void do_leader(void)
 {
