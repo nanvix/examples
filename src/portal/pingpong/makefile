@@ -32,8 +32,7 @@ include $(BUILDDIR)/makefile.config
 EXEC = nanvix-portal-pingpong.$(OBJ_SUFFIX)
 
 # C Source Files
-SRC = $(wildcard *.c) \
-      $(wildcard workload/*.c)
+SRC = $(wildcard *.c) 
 
 # Object Files
 OBJ = $(SRC:.c=.$(OBJ_SUFFIX).o)

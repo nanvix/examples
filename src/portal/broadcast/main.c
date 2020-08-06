@@ -87,16 +87,10 @@ static void do_worker(void)
 {
 	int inportal;
 	uint64_t latency, volume;
-
-	uprintf("[worker] Wake up!");
-
-	uprintf("[leader] Create portal! Worker %d from Leader %d", (int) PROCESSOR_NODENUM_LEADER, knode_get_num());
 	
 	/* Estabilish connection. */
 	uassert((inportal = kportal_create(knode_get_num(), PORT_NUM)) >= 0);
 
-	uprintf("[worker] Read data (%d : %d)!", inportal, (int) PORT_NUM);
-	
 	uassert(kportal_allow(inportal, PROCESSOR_NODENUM_LEADER, PORT_NUM) >= 0);
 	uassert(kportal_read(inportal, buf, BUFFER_SIZE) == BUFFER_SIZE);
 
@@ -105,11 +99,8 @@ static void do_worker(void)
 
 	uprintf("[portal][broadcast] latency=%l volume=%l", latency, volume);
 
-	uprintf("[worker] Unlink portal!");
-
 	uassert(kportal_unlink(inportal) == 0);
 
-	uprintf("[worker] Exit!");
 }
 
 /**

@@ -56,6 +56,7 @@ static void do_leader(void)
 
 	uassert(kportal_allow(inportal, PROCESSOR_NODENUM_LEADER + 1, PORT_NUM) == 0);
 	uassert(kportal_read(inportal, buf, BUFFER_SIZE) == BUFFER_SIZE);
+
 	uassert(kportal_write(outportal, buf, BUFFER_SIZE) == BUFFER_SIZE);
 
 	uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_LATENCY, &latency) == 0);
@@ -79,6 +80,7 @@ static void do_worker(void)
 	uassert((outportal = kportal_open(knode_get_num(), PROCESSOR_NODENUM_LEADER, PORT_NUM)) >= 0);
 
 	uassert(kportal_write(outportal, buf, BUFFER_SIZE) == BUFFER_SIZE);
+
 	uassert(kportal_allow(inportal, PROCESSOR_NODENUM_LEADER, PORT_NUM) == 0);
 	uassert(kportal_read(inportal, buf, BUFFER_SIZE) == BUFFER_SIZE);
 

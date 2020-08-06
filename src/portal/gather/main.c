@@ -58,29 +58,26 @@ static void do_leader(void)
 	uassert((inportal = kportal_create(knode_get_num(), PORT_NUM)) >= 0);
 	
 	/* Receive data. */
-	for (int k = 1; k < NCLUSTERS; k++)
-		{
-			uassert(
-				kportal_allow(
-					inportal,
-					PROCESSOR_NODENUM_LEADER +1,
-					PORT_NUM
-				) == 0
-			);
-			uassert(
-				kportal_read(
-					inportal,
-					buf,
-					BUFFER_SIZE
-				) == BUFFER_SIZE
-			);
+	uassert(
+		kportal_allow(
+			inportal,
+			PROCESSOR_NODENUM_LEADER +1,
+			PORT_NUM
+		) == 0
+	);
+	uassert(
+		kportal_read(
+			inportal,
+			buf,
+			BUFFER_SIZE
+		) == BUFFER_SIZE
+	);
 	
 		
-		uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_LATENCY, &latency) == 0);
-		uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_VOLUME, &volume) == 0);
+	uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_LATENCY, &latency) == 0);
+	uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_VOLUME, &volume) == 0);
 
-		uprintf("[examples][portal][gather] it=%d latency=%l volume=&l", k, latency, volume);
-		}
+	uprintf("[examples][portal][gather] latency=%l volume=%l", k, latency, volume);
 		
 	uassert(kportal_unlink(inportal) == 0);
 }
