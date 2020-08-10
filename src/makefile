@@ -29,17 +29,8 @@ all: all-hello all-thread all-mailbox all-portal
 clean: clean-hello clean-thread clean-mailbox clean-portal
 
 # Cleans up everything.
-<<<<<<< HEAD
-<<<<<<< HEAD
-distclean: distclean-hello distclean-thread distclean-mailbox
-
-=======
-distclean: distclean-hello disclean-thread disclean-mailbox
->>>>>>> 4949395... Feature: Broadcast example using a mailbox.
-=======
 distclean: distclean-hello distclean-thread distclean-mailbox distclean-portal
 
->>>>>>> 478367d... Feature: Broadcast example using a portal.
 #===============================================================================
 # Hello World
 #===============================================================================
