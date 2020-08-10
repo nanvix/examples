@@ -56,7 +56,7 @@ static void do_leader(void)
 
 	/* Estabilish connection. */
 	uassert((inportal = kportal_create(knode_get_num(), PORT_NUM)) >= 0);
-	
+
 	/* Receive data. */
 	uassert(
 		kportal_allow(
@@ -72,18 +72,17 @@ static void do_leader(void)
 			BUFFER_SIZE
 		) == BUFFER_SIZE
 	);
-	
-		
+
 	uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_LATENCY, &latency) == 0);
 	uassert(kportal_ioctl(inportal, KPORTAL_IOCTL_GET_VOLUME, &volume) == 0);
 
-	uprintf("[examples][portal][gather] latency=%l volume=%l", k, latency, volume);
-		
+	uprintf("[examples][portal][gather] latency=%l volume=%l", latency, volume);
+
 	uassert(kportal_unlink(inportal) == 0);
 }
 
 /**
- * @brief Sends data to leader. 
+ * @brief Sends data to leader.
  */
 static void do_worker(void)
 {

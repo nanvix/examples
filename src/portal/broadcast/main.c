@@ -77,7 +77,7 @@ static void do_worker(void)
 {
 	int inportal;
 	uint64_t latency, volume;
-	
+
 	/* Estabilish connection. */
 	uassert((inportal = kportal_create(knode_get_num(), PORT_NUM)) >= 0);
 
@@ -106,7 +106,7 @@ static void portal_broadcast(void)
 /**
  * @brief Launches the example.
  */
-int __main3(int argc, const char *argv[]) 
+int __main3(int argc, const char *argv[])
 {
 	((void) argc);
 	((void) argv);
