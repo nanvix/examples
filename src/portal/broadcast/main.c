@@ -49,10 +49,6 @@ static void do_leader(void)
 {
 	int outportal;
 
-	uprintf("[leader] Wake up!");
-
-	uprintf("[leader] Open portal! Leader %d to Worder %d", knode_get_num(), (int) (PROCESSOR_NODENUM_LEADER + 1));
-
 	/* Estabilish connection. */
 	uassert((
 		outportal = kportal_open(
@@ -61,9 +57,7 @@ static void do_leader(void)
 			PORT_NUM)
 		) >= 0
 	);
-	
-	uprintf("[leader] Send data!");
-	
+
 	/* Broadcast data. */
 	uassert(
 		kportal_write(
@@ -73,11 +67,7 @@ static void do_leader(void)
 		) == BUFFER_SIZE
 	);
 
-	uprintf("[leader] Close portal!");
-
 	uassert(kportal_close(outportal) == 0);
-
-	uprintf("[leader] Finishing!");
 }
 
 /**
@@ -100,7 +90,6 @@ static void do_worker(void)
 	uprintf("[portal][broadcast] latency=%l volume=%l", latency, volume);
 
 	uassert(kportal_unlink(inportal) == 0);
-
 }
 
 /**

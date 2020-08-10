@@ -49,15 +49,12 @@ static void do_leader(void)
 	int outbox;
 	/* Establish connections. */
 	uassert((outbox = kmailbox_open(PROCESSOR_NODENUM_LEADER + 1, PORT_NUM)) >= 0);
-
-	int outboxes;
 	
 	uassert(barrier_wait(barrier) == 0);
 
 	/* Broadcast message. */
 	uassert(
 		kmailbox_write(
-<<<<<<< HEAD
 			outbox,
 			msg,
 			KMAILBOX_MESSAGE_SIZE
@@ -66,10 +63,7 @@ static void do_leader(void)
 	
 	uassert(kmailbox_close(outbox) == 0);
 }
-	uassert(barrier_wait(barrier) == 0);
 
-	uassert(kmailbox_close(outboxes) == 0);
-}
 /**
  * @brief Sends messages to leader.
  */
@@ -84,7 +78,6 @@ static void do_worker(void)
 	uassert(barrier_wait(barrier) == 0);
 
 		uassert(
-<<<<<<< HEAD
 			kmailbox_read(
 				inbox,
 				msg,
