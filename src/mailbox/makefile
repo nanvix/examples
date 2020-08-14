@@ -24,6 +24,7 @@
 
 # Builds everything.
 all: all-broadcast all-gather all-pingpong
+
 # Cleans up build objects.
 clean:  clean-broadcast clean-gather clean-pingpong
 

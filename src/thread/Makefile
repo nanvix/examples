@@ -24,8 +24,10 @@
 
 # Builds everything.
 all: all-hello all-shared-variable all-producer-consumer
+
 # Cleans up build objects.
 clean: clean-hello clean-shared-variable clean-producer-consumer
+
 # Cleans up everything.
 distclean: distclean-hello distclean-shared-variable distclean-producer-consumer
 
@@ -36,9 +38,11 @@ distclean: distclean-hello distclean-shared-variable distclean-producer-consumer
 # Builds the app.
 all-hello:
 	$(MAKE) -C hello all
+
 # Cleans up build objects.
 clean-hello:
 	$(MAKE) -C hello clean
+
 # Cleans up everything.
 distclean-hello:
 	$(MAKE) -C hello distclean
@@ -50,9 +54,11 @@ distclean-hello:
 # Builds the app.
 all-shared-variable:
 	$(MAKE) -C shared-variable all
+
 # Cleans up build objects.
 clean-shared-variable:
 	$(MAKE) -C shared-variable clean
+
 # Cleans up everything.
 distclean-shared-variable:
 	$(MAKE) -C shared-variable distclean
@@ -64,10 +70,11 @@ distclean-shared-variable:
 # Builds the app.
 all-producer-consumer:
 	$(MAKE) -C producer-consumer all
+
 # Cleans up build objects.
 clean-producer-consumer:
 	$(MAKE) -C producer-consumer clean
+
 # Cleans up everything.
 distclean-producer-consumer:
 	$(MAKE) -C producer-consumer distclean
-
