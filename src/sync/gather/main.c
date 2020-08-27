@@ -25,6 +25,7 @@
 #include <nanvix/sys/perf.h>
 #include <nanvix/limits.h>
 #include <nanvix/ulib.h>
+
 /**
  * @brief Forces a platform-independent delay.
  *
@@ -42,6 +43,7 @@ static void delay(int times, uint64_t cycles)
 		while ((t1 - t0) < cycles);
 	}
 }
+
 /**
  * Build a list of the node IDs
  *
@@ -54,6 +56,7 @@ static void build_node_list(int * clusters, int nclusters)
 	for (int i = 0; i < nclusters; ++i)
 		clusters[i] = PROCESSOR_NODENUM_LEADER + i;
 }
+
 /**
  * @bbrief Receives data from worker.
  */
@@ -72,7 +75,11 @@ static void do_leader(void)
 				SYNC_ALL_TO_ONE)
 		) >= 0
 	);
-
+	
+	/**
+	 * This delay ensures that all clusters open/create their sync point and no signal is lost! 
+	 * This is mandatory because we do not know if all clusters opened their sync points at this point and if a signal arrives to an unopened sync, it is will be dropped.
+	 */
 	delay(5, CLUSTER_FREQ);
 	
 	/* Broadcast data. */
@@ -80,6 +87,7 @@ static void do_leader(void)
 
 	uassert(ksync_unlink(syncin) == 0);
 }
+
 /**
  * @brief Sends data to leader.
  */
@@ -127,6 +135,7 @@ static void signal_gather(void)
 
 	fn();
 }
+
 /**
  * @brief Launches the example..
  */

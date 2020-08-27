@@ -21,11 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 #include <nanvix/runtime/runtime.h>
 #include <nanvix/sys/perf.h>
 #include <nanvix/limits.h>
 #include <nanvix/ulib.h>
+
 /**
  * @brief Forces a plataform-independent delay.
  *
@@ -44,6 +44,7 @@ static void delay(int times, uint64_t cycles)
 		while ((t1 - t0) < cycles);
 	}
 }
+
 /*
  * @brief Build a list of the node IDs
  *
@@ -77,6 +78,10 @@ static void do_leader(void)
 		) >= 0
 	);
 
+	/**
+	 * This delay ensures that all clusters open/create their sync point and no signal is lost! 
+	 * This is mandatory because we do not know if all clusters opened their sync points at this point and if a signal arrives to an unopened sync, it is will be dropped.
+	 */
 	delay(5, CLUSTER_FREQ);
 	
 	/* Broadcast data. */
@@ -117,6 +122,7 @@ static void do_worker(void)
 
 	uassert(ksync_unlink(syncin) == 0);
 }
+
 /**
  * @brief Broadcast communication example with syncs.
  */
@@ -129,6 +135,7 @@ static void signal_broadcast(void)
 
 	fn();
 }
+
 /**
  * @brief Launches the example.
  */

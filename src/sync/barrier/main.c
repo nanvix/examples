@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 #include <nanvix/runtime/runtime.h>
 #include <nanvix/runtime/barrier.h>
 #include <nanvix/sys/perf.h>
@@ -36,7 +35,6 @@ static int nodes[NANVIX_PROC_MAX];
 */
 static void synchronizer(void)
 {
-	
 	/* Creates the barrier. */
 	barrier = barrier_create(nodes, NANVIX_PROC_MAX);
 	uassert(BARRIER_IS_VALID(barrier));
@@ -47,7 +45,6 @@ static void synchronizer(void)
 
 	uassert(barrier_wait(barrier) == 0);
 
-
 	uassert(barrier_destroy(barrier) == 0);
 } 
 
@@ -56,7 +53,6 @@ static void synchronizer(void)
  */
 static void sync_barrier(void)
 {
-
 	/* Build list of nodes. */
 	for (int i = 0; i < NANVIX_PROC_MAX; i++)
 		nodes[i] = PROCESSOR_NODENUM_LEADER + i;
