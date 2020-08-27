@@ -23,13 +23,13 @@
 #
 
 # Builds everything.
-all: all-hello all-thread all-mailbox all-portal
+all: all-hello all-thread all-mailbox all-portal all-sync
 
 # Cleans up build objects.
-clean: clean-hello clean-thread clean-mailbox clean-portal
+clean: clean-hello clean-thread clean-mailbox clean-portal clean-sync
 
 # Cleans up everything.
-distclean: distclean-hello distclean-thread distclean-mailbox distclean-portal
+distclean: distclean-hello distclean-thread distclean-mailbox distclean-portal distclean-sync
 
 #===============================================================================
 # Hello World
@@ -94,3 +94,20 @@ clean-portal:
 # Cleans up everything.
 distclean-portal:
 	$(MAKE) -C portal distclean
+
+#===============================================================================
+# Sync
+#===============================================================================
+
+# Builds benchmark.
+all-sync:
+	$(MAKE) -C sync all
+
+# Cleans up build object.
+clean-sync:
+	$(MAKE) -C sync clean
+
+# Cleans up everything.
+distclean-sync:
+	$(MAKE) -C sync distclean
+
