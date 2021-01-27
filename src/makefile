@@ -23,13 +23,13 @@
 #
 
 # Builds everything.
-all: all-hello all-thread all-mailbox all-portal
+all: all-hello all-thread all-mailbox all-portal all-name
 
 # Cleans up build objects.
-clean: clean-hello clean-thread clean-mailbox clean-portal
+clean: clean-hello clean-thread clean-mailbox clean-portal clean-name
 
 # Cleans up everything.
-distclean: distclean-hello distclean-thread distclean-mailbox distclean-portal
+distclean: distclean-hello distclean-thread distclean-mailbox distclean-portal distclean-name
 
 #===============================================================================
 # Hello World
@@ -94,3 +94,19 @@ clean-portal:
 # Cleans up everything.
 distclean-portal:
 	$(MAKE) -C portal distclean
+
+#===============================================================================
+# name
+#===============================================================================
+
+# Builds the app.
+all-name:
+	$(MAKE) -C name all
+
+# Cleans up build objects.
+clean-name:
+	$(MAKE) -C name clean
+
+# Cleans up everything.
+distclean-name:
+	$(MAKE) -C name distclean
